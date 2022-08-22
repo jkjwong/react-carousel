@@ -6,6 +6,10 @@
 .carousel {
     transition: transform 0.5s;
     white-space: nowrap;
+
+    &.moving {
+        transition: transform 0s;
+    }
 }
 
 .left {
