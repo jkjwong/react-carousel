@@ -1,0 +1,23 @@
+.carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel {
+    transition: transform 0.5s;
+    white-space: nowrap;
+}
+
+.left {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.right {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
