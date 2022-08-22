@@ -17,9 +17,9 @@ export default function Carousel() {
     const ref: any = useRef();
 
     const handleMouseDown = (e: any) => {
+        const clientX = (e.touches && e.touches[0]?.clientX) || e.clientX;
         setMoving(true);
-        if (e.clientX) setDragStartX(e.clientX);
-        
+        if (clientX) setDragStartX(clientX);
     }
 
     const handleMouseUp = (e: any) => {
@@ -35,7 +35,7 @@ export default function Carousel() {
     }
 
     const handleMouseMove = (e: any) => {
-        const clientX = e.clientX || e.touches[0].clientX
+        const clientX = e.clientX || (e.touches && e.touches[0]?.clientX)
         if (moving === true) {
             if (clientX < dragStartX) {
                 const difference = dragStartX - clientX;
