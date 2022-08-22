@@ -51,8 +51,26 @@ export default function Carousel() {
         }
     }
 
+    const debounce = (func: any) => {
+        let timer: any;
+        return () => {
+            clearTimeout(timer);
+            timer = setTimeout(() => func(), 1000)
+        }
+    }
+
+    const handleResize = () => {
+        setSliderWidth(ref.current.clientWidth);
+    }
+
     useEffect(() => {
         setSliderWidth(ref.current.clientWidth);
+
+        window.addEventListener('resize', debounce(handleResize));
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        }
     }, []);
  
     const goLeft = () => {
@@ -93,13 +111,18 @@ export default function Carousel() {
             onKeyUp={handleKey}
             tabIndex={0}>
             <div className="carousel-wrapper">
-                <div className={`carousel ${moving ? 'moving' : ''}`} style={{ 'transform': `translateX(${(activeIndex * -100) + translateOffset}%)` }}>
+                <div
+                    className={`carousel ${moving ? 'moving' : ''}`}
+                    style={{ 'transform': `translateX(${(activeIndex * -100) + translateOffset}%)` }}>
                     {carouselItems}
                 </div>
                 <button className="left" onClick={goLeft}>&lt;</button>
                 <button className="right" onClick={goRight}>&gt;</button>
             </div>
-            <Bullets length={carouselItems.length} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+            <Bullets
+                length={carouselItems.length}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex} />
         </div>
     )
 }
